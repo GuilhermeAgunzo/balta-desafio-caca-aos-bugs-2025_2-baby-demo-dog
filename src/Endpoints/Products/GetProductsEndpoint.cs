@@ -6,7 +6,7 @@ namespace BugStore.Endpoints.Products;
 
 public static class GetProductsEndpoint
 {
-  public static void MapGetProductsEndpoint(this WebApplication app)
+  public static void MapGetProducts(this WebApplication app)
   {
     app.MapGet("/products", async Task<IResult> (
       [FromServices] IHandler handler,
