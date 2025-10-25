@@ -77,13 +77,14 @@ public class Handler(AppDbContext db) : IHandler
     try
     {
       var query = db.Customers
-        .AsNoTracking()
+        .AsNoTracking();
+
+      var customers = await query
         .Take(request.PageSize)
-        .Skip((request.PageNumber - 1) * request.PageSize);
+        .Skip((request.PageNumber - 1) * request.PageSize)
+        .ToListAsync(cancellationToken);
 
-      var customers = await query.ToListAsync(cancellationToken);
-
-      var total = await db.Customers.CountAsync(cancellationToken);
+      var total = await query.CountAsync(cancellationToken);
 
       return new Responses.Customers.Get(
         data: customers,
