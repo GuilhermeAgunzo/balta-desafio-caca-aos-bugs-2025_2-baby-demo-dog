@@ -29,4 +29,4 @@ Banco de Dados.
 
 ### Veja meu progresso no desafio
 
-[Incluir link para o repositório central]
+[https://github.com/GuilhermeAgunzo/balta-desafio-caca-aos-bugs-2025](https://github.com/GuilhermeAgunzo/balta-desafio-caca-aos-bugs-2025)
