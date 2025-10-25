@@ -25,9 +25,9 @@ app.MapDeleteCustomer();
 
 app.MapGetProducts();
 app.MapGetProductById();
-app.MapPost("/v1/products", () => "Hello World!");
-app.MapPut("/v1/products/{id}", () => "Hello World!");
-app.MapDelete("/v1/products/{id}", () => "Hello World!");
+app.MapCreateProduct();
+app.MapUpdateProduct();
+app.MapDeleteProduct();
 
 app.MapGet("/v1/orders/{id}", () => "Hello World!");
 app.MapPost("/v1/orders", () => "Hello World!");
