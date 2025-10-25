@@ -1,5 +1,6 @@
 using BugStore.Data;
 using BugStore.Endpoints.Customers;
+using BugStore.Endpoints.Orders;
 using BugStore.Endpoints.Products;
 using BugStore.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,7 @@ app.MapCreateProduct();
 app.MapUpdateProduct();
 app.MapDeleteProduct();
 
-app.MapGet("/v1/orders/{id}", () => "Hello World!");
-app.MapPost("/v1/orders", () => "Hello World!");
+app.MapGetOrderById();
+app.MapCreateOrder();
 
 app.Run();

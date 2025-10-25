@@ -5,7 +5,7 @@ namespace BugStore.Endpoints.Orders;
 
 public static class CreateOrderEndpoint
 {
-  public static void MapCreateOrderEndpoint(this WebApplication app)
+  public static void MapCreateOrder(this WebApplication app)
   {
     app.MapPost("/orders", async (
       [FromServices] IHandler handler,

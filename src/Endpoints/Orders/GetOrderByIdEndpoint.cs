@@ -5,7 +5,7 @@ namespace BugStore.Endpoints.Orders;
 
 public static class GetOrderByIdEndpoint
 {
-  public static void MapGetOrderByIdEndpoint(this WebApplication app)
+  public static void MapGetOrderById(this WebApplication app)
   {
     app.MapGet("/orders/{id}", async (
       [FromServices] IHandler handler,
