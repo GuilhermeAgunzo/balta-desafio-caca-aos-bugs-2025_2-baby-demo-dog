@@ -95,6 +95,7 @@ public class Handler(AppDbContext db) : IHandler
       customer.Phone = request.Phone;
       customer.BirthDate = request.BirthDate;
 
+      db.Customers.Update(customer);
       await db.SaveChangesAsync(cancellationToken);
 
       return new Responses.Customers.Update(data: customer);
