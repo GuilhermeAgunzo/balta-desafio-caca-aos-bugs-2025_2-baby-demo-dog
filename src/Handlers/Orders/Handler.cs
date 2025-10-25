@@ -15,13 +15,34 @@ public class Handler(AppDbContext db) : IHandler
       Id = Guid.NewGuid(),
       CustomerId = request.CustomerId,
       Customer = request.Customer,
-      CreatedAt = request.CreatedAt,
-      UpdatedAt = request.UpdatedAt,
+      CreatedAt = DateTime.UtcNow,
+      UpdatedAt = DateTime.UtcNow,
       Lines = request.Lines
     };
 
     try
     {
+      var customer = await db.Customers.FirstOrDefaultAsync(c => c.Id == request.CustomerId, cancellationToken);
+      if (customer is null)
+      {
+        return new Responses.Orders.Create(null, 404, "Customer not found.");
+      }
+
+      order.Customer = customer;
+
+      var products = await db.Products.Where(p => request.Lines.Select(l => l.ProductId).Contains(p.Id)).ToListAsync(cancellationToken);
+
+      foreach (var line in order.Lines)
+      {
+        var product = products.FirstOrDefault(p => p.Id == line.ProductId);
+        if (product is null)
+        {
+          return new Responses.Orders.Create(null, 404, $"Product with ID {line.ProductId} not found.");
+        }
+        line.OrderId = order.Id;
+        line.Product = product;
+      }
+
       await db.Orders.AddAsync(order, cancellationToken);
       await db.SaveChangesAsync(cancellationToken);
 

@@ -7,7 +7,7 @@ public static class CreateOrderEndpoint
 {
   public static void MapCreateOrder(this WebApplication app)
   {
-    app.MapPost("/orders", async (
+    app.MapPost("/v1/orders", async (
       [FromServices] IHandler handler,
       Requests.Orders.Create request,
       CancellationToken cancellationToken = default) =>
