@@ -8,5 +8,6 @@ public static class BuilderExtension
   {
     builder.Services.AddTransient<Abstractions.Handlers.Customers.IHandler, Handlers.Customers.Handler>();
     builder.Services.AddTransient<Abstractions.Handlers.Products.IHandler, Handlers.Products.Handler>();
+    builder.Services.AddTransient<Abstractions.Handlers.Orders.IHandler, Handlers.Orders.Handler>();
   }
 }
