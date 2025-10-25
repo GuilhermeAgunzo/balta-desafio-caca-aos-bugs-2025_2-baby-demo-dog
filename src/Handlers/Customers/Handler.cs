@@ -12,9 +12,24 @@ public class Handler(AppDbContext db) : IHandler
     throw new NotImplementedException();
   }
 
-  public Task<Responses.Customers.Delete> DeleteCustomerAsync(Requests.Customers.Delete request, CancellationToken cancellationToken)
+  public async Task<Responses.Customers.Delete> DeleteCustomerAsync(Requests.Customers.Delete request, CancellationToken cancellationToken)
   {
-    throw new NotImplementedException();
+    try
+    {
+      var customer = await db.Customers.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+      if (customer is null)
+      {
+        return new Responses.Customers.Delete(data: null, statusCode: 404, message: "Customer not found.");
+      }
+      db.Customers.Remove(customer);
+      await db.SaveChangesAsync(cancellationToken);
+
+      return new Responses.Customers.Delete(data: null, statusCode: 200, message: "Customer deleted successfully.");
+    }
+    catch
+    {
+      return new Responses.Customers.Delete(data: null, statusCode: 500, message: "An error occured while deleting the customer.");
+    }
   }
 
   public async Task<Responses.Customers.GetById> GetCustomerByIdAsync(Requests.Customers.GetById request, CancellationToken cancellationToken)
