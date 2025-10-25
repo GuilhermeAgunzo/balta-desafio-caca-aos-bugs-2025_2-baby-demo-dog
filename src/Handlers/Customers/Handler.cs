@@ -7,9 +7,28 @@ namespace BugStore.Handlers.Customers;
 
 public class Handler(AppDbContext db) : IHandler
 {
-  public Task<Responses.Customers.Create> CreateCustomerAsync(Requests.Customers.Create request, CancellationToken cancellationToken)
+  public async Task<Responses.Customers.Create> CreateCustomerAsync(Requests.Customers.Create request, CancellationToken cancellationToken)
   {
-    throw new NotImplementedException();
+    try
+    {
+      var customer = new Customer
+      {
+        Id = Guid.NewGuid(),
+        Name = request.Name,
+        Email = request.Email,
+        Phone = request.Phone,
+        BirthDate = request.BirthDate
+      };
+
+      db.Customers.Add(customer);
+      await db.SaveChangesAsync(cancellationToken);
+
+      return new Responses.Customers.Create(data: customer);
+    }
+    catch
+    {
+      return new Responses.Customers.Create(data: null, statusCode: 500, message: "An error occured while creating the customer.");
+    }
   }
 
   public async Task<Responses.Customers.Delete> DeleteCustomerAsync(Requests.Customers.Delete request, CancellationToken cancellationToken)
