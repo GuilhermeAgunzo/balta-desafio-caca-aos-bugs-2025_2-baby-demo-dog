@@ -7,7 +7,7 @@ namespace BugStore.Handlers.Customers;
 
 public class Handler(AppDbContext db) : IHandler
 {
-  public async Task<Responses.Customers.Create> CreateCustomerAsync(Requests.Customers.Create request, CancellationToken cancellationToken)
+  public async Task<Responses.Customers.Create> CreateCustomerAsync(Requests.Customers.Create request, CancellationToken cancellationToken = default)
   {
     try
     {
@@ -31,7 +31,7 @@ public class Handler(AppDbContext db) : IHandler
     }
   }
 
-  public async Task<Responses.Customers.Delete> DeleteCustomerAsync(Requests.Customers.Delete request, CancellationToken cancellationToken)
+  public async Task<Responses.Customers.Delete> DeleteCustomerAsync(Requests.Customers.Delete request, CancellationToken cancellationToken = default)
   {
     try
     {
@@ -51,7 +51,7 @@ public class Handler(AppDbContext db) : IHandler
     }
   }
 
-  public async Task<Responses.Customers.GetById> GetCustomerByIdAsync(Requests.Customers.GetById request, CancellationToken cancellationToken)
+  public async Task<Responses.Customers.GetById> GetCustomerByIdAsync(Requests.Customers.GetById request, CancellationToken cancellationToken = default)
   {
     try
     {
@@ -72,7 +72,7 @@ public class Handler(AppDbContext db) : IHandler
     }
   }
 
-  public async Task<Responses.Customers.Get> GetCustomersAsync(Requests.Customers.Get request, CancellationToken cancellationToken)
+  public async Task<Responses.Customers.Get> GetCustomersAsync(Requests.Customers.Get request, CancellationToken cancellationToken = default)
   {
     try
     {
@@ -98,7 +98,7 @@ public class Handler(AppDbContext db) : IHandler
     }
   }
 
-  public async Task<Responses.Customers.Update> UpdateCustomerAsync(Requests.Customers.Update request, CancellationToken cancellationToken)
+  public async Task<Responses.Customers.Update> UpdateCustomerAsync(Requests.Customers.Update request, CancellationToken cancellationToken = default)
   {
     try
     {
