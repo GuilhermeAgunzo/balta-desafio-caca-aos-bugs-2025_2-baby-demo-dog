@@ -79,8 +79,29 @@ public class Handler(AppDbContext db) : IHandler
     }
   }
 
-  public Task<Responses.Customers.Update> UpdateCustomerAsync(Requests.Customers.Update request, CancellationToken cancellationToken)
+  public async Task<Responses.Customers.Update> UpdateCustomerAsync(Requests.Customers.Update request, CancellationToken cancellationToken)
   {
-    throw new NotImplementedException();
+    try
+    {
+      var customer = await db.Customers.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+
+      if (customer is null)
+      {
+        return new Responses.Customers.Update(data: null, statusCode: 404, message: "Customer not found.");
+      }
+
+      customer.Name = request.Name;
+      customer.Email = request.Email;
+      customer.Phone = request.Phone;
+      customer.BirthDate = request.BirthDate;
+
+      await db.SaveChangesAsync(cancellationToken);
+
+      return new Responses.Customers.Update(data: customer);
+    }
+    catch
+    {
+      return new Responses.Customers.Update(data: null, statusCode: 500, message: "An error occured while updating the customer.");
+    }
   }
 }
